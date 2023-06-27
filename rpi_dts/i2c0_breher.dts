@@ -1,0 +1,83 @@
+/dts-v1/;
+
+/ {
+	compatible = "brcm,bcm2835";
+
+	fragment@0 {
+		target-path = [2f 00];
+
+		__overlay__ {
+
+			i2c@0 {
+				reg = <0xffffffff>;
+				compatible = "i2c-gpio";
+				gpios = <0xffffffff 0x17 0x06 0xffffffff 0x18 0x06>;
+				i2c-gpio,delay-us = <0x02>;
+				#address-cells = <0x01>;
+				#size-cells = <0x00>;
+				phandle = <0x01>;
+				
+				pca@5f {
+					compatible = "nxp,pca9685-pwm";
+					#pwm-cells = <0x02>;
+					reg = <0x5f>;
+					status = "okay";
+					phandle = <0x02>;
+				};
+
+				sts3x@4a {
+					compatible = "sensirion,sts3x";
+					reg = <0x4a>;
+					status = "okay";
+				};
+
+				sts3x@4b {
+					compatible = "sensirion,sts3x";
+					reg = <0x4b>;
+					status = "okay";
+				};
+			};
+		};
+	};
+
+	fragment@1 {
+		target-path = "/aliases";
+
+		__overlay__ {
+			i2c0_breher = "/i2c@0";
+		};
+	};
+
+	fragment@2 {
+		target-path = "/__symbols__";
+
+		__overlay__ {
+			i2c0_breher = "/i2c@0";
+		};
+	};
+
+	__overrides__ {
+		i2c0_breher_sda = <0x01 0x6770696f 0x733a3400>;
+		i2c0_breher_scl = [00 00 00 01 67 70 69 6f 73 3a 31 36 00];
+		i2c0_breher_delay_us = <0x01 0x6932632d 0x6770696f 0x2c64656c 0x61792d75 0x733a3000>;
+		bus = [00 00 00 01 72 65 67 3a 30 00];
+	};
+
+	__symbols__ {
+		i2c0_breher = "/fragment@0/__overlay__/i2c@0";
+	};
+
+	__fixups__ {
+		gpio = "/fragment@0/__overlay__/i2c@0:gpios:0\0/fragment@0/__overlay__/i2c@0:gpios:12";
+	};
+
+	__local_fixups__ {
+
+		__overrides__ {
+			i2c0_breher_sda = <0x00>;
+			i2c0_breher_scl = <0x00>;
+			i2c0_breher_delay_us = <0x00>;
+			bus = <0x00>;
+		};
+	};
+};
