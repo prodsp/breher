@@ -1,16 +1,25 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QtDebug>
 
+#include <QQuickView>
+#include <QQmlContext>
+
+#include "backend.h"
+#include "QThread"
 int main(int argc, char *argv[])
 {
-#if QT_VERSION < QT_VERSION_CHECK(6, 0, 0)
+
+
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
-#endif
+    qputenv("QT_QUICK_CONTROLS_STYLE", "material");
 
     QGuiApplication app(argc, argv);
 
+
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("qrc:/main.qml"));
+
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)

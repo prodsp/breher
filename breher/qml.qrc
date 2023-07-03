@@ -1,5 +1,9 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>pics/valve.png</file>
+        <file>pics/heater.png</file>
+        <file>pics/tap.png</file>
+        <file>pics/pump.png</file>
     </qresource>
 </RCC>
