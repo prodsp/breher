@@ -1,2 +1,2 @@
 # breher
-The story of building a home brewer machine in an office.
+The story of building a home brewer machine @ ProDSP Technologies.
